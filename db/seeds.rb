@@ -12,11 +12,46 @@ Tag.destroy_all
 Song.destroy_all
 SongTag.destroy_all
 
-rothberry = User.new(username: 'rothberry', name: 'phil', password: '123', location: 'Kzoo', bio: 'sup', img_url: '', facebook_url: 'https://www.facebook.com/Rothberry-Music-266464367571291/', twitter_url: 'https://twitter.com/rothberry_', soundcloud_url: 'https://soundcloud.com/rothberry')
-graceo = User.new(username: 'graceo', name: 'grace', password: '123', location: 'Chicago', bio: 'sup')
-mal = User.new(username: 'mal', name: 'malisa', password: '123', location: 'Chicago', bio: 'sup')
-clim = User.new(username: 'c-lim', name: 'christian', password: '123', location: 'Chicago', bio: 'sup')
-bruceo = User.new(username: 'bruceo', name: 'bruce', password: '123', location: 'Chicago', bio: 'sup')
+rothberry = User.new(
+  username: 'rothberry', 
+  name: 'phil', 
+  password: '123', 
+  location: 'Kzoo', 
+  bio: 'sup', 
+  img_url: 'https://drive.google.com/file/d/0BxQ0IspMyps1cFM0eVhJNG9kd2IyRkZtUWVEaE4xdWpNN0tZ/view?usp=sharing', 
+  facebook_url: 'https://www.facebook.com/Rothberry-Music-266464367571291/', 
+  twitter_url: 'https://twitter.com/rothberry_', 
+  soundcloud_url: 'https://soundcloud.com/rothberry'
+  )
+graceo = User.new(
+  username: 'graceo', 
+  name: 'grace', 
+  password: '123', 
+  location: 'Chicago', 
+  bio: 'sup', 
+  img_url: 'https://miro.medium.com/fit/c/160/160/2*4Kbqxwmg8dJ4iWAtaRpVfg.jpeg'
+  )
+mal = User.new(
+  username: 'mal', 
+  name: 'malisa', 
+  password: '123', 
+  location: 'Chicago', 
+  bio: 'sup'
+  )
+clim = User.new(
+  username: 'c-lim', 
+  name: 'christian', 
+  password: '123', 
+  location: 'Chicago', 
+  bio: 'sup'
+  )
+bruceo = User.new(
+  username: 'bruceo', 
+  name: 'bruce', 
+  password: '123', 
+  location: 'Chicago', 
+  bio: 'sup'
+  )
 rothberry.save
 graceo.save
 mal.save
