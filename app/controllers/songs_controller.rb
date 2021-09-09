@@ -6,15 +6,17 @@ class SongsController < ApplicationController
     songs = Song.all
     song_array = []
     # AWS TESTING
-    region = "us-west-1"
-    bucket_name = "audiophiles-2"
+    # region = "us-west-1"
+    # bucket_name = "audiophiles-2"
     # Rails.application.credentials
-    s3 = Aws::S3::Resource.new(region: region, credentials: Rails.application.credentials)
-    ap = "audiophiles-ap-tutrn4td3rp957x3ao7jc3ga7kd3susw1a-s3alias"
+    # s3 = Aws::S3::Resource.new(region: ENV["AWS_REGION"], credentials: Rails.application.credentials)
+
     songs.map do | song |
       p song.song_link
       if (song.song_link.attached?)
+        # ? For local
         # song_link = url_for(song.song_link)
+        # ? For AWS
         song_link = song.song_link.service_url
         song_array.push({ song: song, song_link: song_link })
       else
