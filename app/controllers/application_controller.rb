@@ -9,7 +9,9 @@ class ApplicationController < ActionController::API
   end
 
   def token
-    request.headers['Authorization'].split(' ')[1]
+    if request.headers['Authorization']
+      return request.headers['Authorization'].split(' ')[1]
+    end
   end
 
   def decoded_token
