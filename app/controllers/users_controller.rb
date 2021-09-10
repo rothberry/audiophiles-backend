@@ -8,12 +8,14 @@ class UsersController < ApplicationController
   end
 
   def show
+    p "*****USER SHOW****"
     user = User.find_by(id: params[:id])
     followed_array = user.active_relationships.map(&:followed_id)
     follower_array = user.passive_relationships.map(&:follower_id)
-    if !user.img_url
-      user.img_url = user.image_link.service_url
-    end
+    # ? Need to regenerate service_url every so often
+    # user.img_url = user.image_link.service_url
+    # user.save
+    reload_image(user)
     render json: {user: user, followed: followed_array, follower: follower_array} 
   end
 
@@ -22,6 +24,9 @@ class UsersController < ApplicationController
     user = User.new(user_params)
     if user.save
       token = issue_token(user)
+      if !!user.image_link
+        reload_image(user)
+      end
       p user
       render json: {user: user, jwt: token}, status: :created
     else
@@ -30,6 +35,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    # TODO Fix update user to use AWS
     p '************UPDATE USER************'
     # user = User.find_by(id: params[:id])
     user = current_user

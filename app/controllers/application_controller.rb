@@ -29,5 +29,10 @@ class ApplicationController < ActionController::API
   def logged_in?
     !!current_user
   end
+
+  def reload_image(user)
+    user.img_url = user.image_link.service_url
+    user.save
+  end
   
 end
