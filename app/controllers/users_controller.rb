@@ -11,7 +11,9 @@ class UsersController < ApplicationController
     user = User.find_by(id: params[:id])
     followed_array = user.active_relationships.map(&:followed_id)
     follower_array = user.passive_relationships.map(&:follower_id)
-    user.img_url = user.image_link.service_url
+    if !user.img_url
+      user.img_url = user.image_link.service_url
+    end
     render json: {user: user, followed: followed_array, follower: follower_array} 
   end
 
