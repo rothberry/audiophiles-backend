@@ -9,6 +9,7 @@ class SongsController < ApplicationController
     # region = "us-west-1"
     # bucket_name = "audiophiles-2"
     # Rails.application.credentials
+    # * Gets an s3 object with all the buckets
     # s3 = Aws::S3::Resource.new(region: ENV["AWS_REGION"], credentials: Rails.application.credentials)
 
     songs.map do | song |
@@ -30,8 +31,10 @@ class SongsController < ApplicationController
   def show
     song = Song.find(params[:id])
     # s3://audiophiles-2/bwu6Uk7HotwuyKXpNvjX2V9C
+    # byebug
     link = url_for(song.song_link)
-    render json: {song: song, song_link: link}, include: [:user, :tags, :favorites, :comments], status: :success
+    link = song.song_link.service_url
+    render json: {song: song, song_link: link}, include: [:user, :tags, :favorites, :comments], status: :ok
   end
 
   # POST /songs
