@@ -1,14 +1,24 @@
 class SongsController < ApplicationController
   before_action :set_song, only: [:show, :edit, :update, :destroy]
-
+  
   # GET /songs
   def index
     songs = Song.all
     song_array = []
+    # AWS TESTING
+    # region = "us-west-1"
+    # bucket_name = "audiophiles-2"
+    # Rails.application.credentials
+    # * Gets an s3 object with all the buckets
+    # s3 = Aws::S3::Resource.new(region: ENV["AWS_REGION"], credentials: Rails.application.credentials)
+
     songs.map do | song |
       p song.song_link
       if (song.song_link.attached?)
-        song_link = url_for(song.song_link)
+        # ? For local
+        # song_link = url_for(song.song_link)
+        # ? For AWS
+        song_link = song.song_link.service_url
         song_array.push({ song: song, song_link: song_link })
       else
         song_array.push({ song: song })
@@ -20,8 +30,11 @@ class SongsController < ApplicationController
   # GET /songs/1
   def show
     song = Song.find(params[:id])
+    # s3://audiophiles-2/bwu6Uk7HotwuyKXpNvjX2V9C
     link = url_for(song.song_link)
-    render json: {song: song, song_link: link}, include: [:user, :tags, :favorites, :comments], status: :success
+    link = song.song_link.service_url
+    render json: {song: song, song_link: link}, include: [:user, :tags, :favorites, :comments], status: :ok
+
   end
 
   # POST /songs

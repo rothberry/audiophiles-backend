@@ -8,29 +8,26 @@ class UsersController < ApplicationController
   end
 
   def show
+    p "*****USER SHOW****"
     user = User.find_by(id: params[:id])
     followed_array = user.active_relationships.map(&:followed_id)
     follower_array = user.passive_relationships.map(&:follower_id)
-    # render json: user
+    # ? Need to regenerate service_url every so often
+    # user.img_url = user.image_link.service_url
+    # user.save
+    reload_image(user)
     render json: {user: user, followed: followed_array, follower: follower_array} 
   end
 
   def create
     p '#########################################'
-    # user = User.new(user_params)
-    user = User.new(
-      username: params[:username],
-      name: params[:name],
-      password: params[:password],
-      location: params[:location],
-      bio: params[:bio],
-      img_url: params[:img_url],
-      facebook_url: params[:facebook_url],
-      twitter_url: params[:twitter_url],
-      soundcloud_url: params[:soundcloud_url]
-    )
+    user = User.new(user_params)
     if user.save
       token = issue_token(user)
+      if !!user.image_link
+        reload_image(user)
+      end
+      p user
       render json: {user: user, jwt: token}, status: :created
     else
       render json: {error: user.errors.full_messages}, status: :not_acceptable
@@ -38,6 +35,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    # TODO Fix update user to use AWS
     p '************UPDATE USER************'
     # user = User.find_by(id: params[:id])
     user = current_user
@@ -79,7 +77,7 @@ class UsersController < ApplicationController
   end
   
   def user_params
-    params.require(:user).permit(:username, :name, :location, :bio, :soundcloud_url, :img_url, :twitter_url, :facebook_url)
+    params.require(:user).permit(:username, :password, :name, :location, :bio, :soundcloud_url, :img_url, :twitter_url, :facebook_url, :image_link)
     # params.permit!
   end
   

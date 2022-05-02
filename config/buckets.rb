@@ -13,7 +13,7 @@
 # TODO
 # require 'aws-sdk-s3'  # v2: require 'aws-sdk'
 
-# region = 'us-east-2'
+# region = 'us-west-1'
 # s3 = Aws::S3::Resource.new(region: region)
 
 # s3.buckets.limit(50).each do |b|
