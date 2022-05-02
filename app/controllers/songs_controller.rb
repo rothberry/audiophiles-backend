@@ -31,10 +31,10 @@ class SongsController < ApplicationController
   def show
     song = Song.find(params[:id])
     # s3://audiophiles-2/bwu6Uk7HotwuyKXpNvjX2V9C
-    # byebug
     link = url_for(song.song_link)
     link = song.song_link.service_url
     render json: {song: song, song_link: link}, include: [:user, :tags, :favorites, :comments], status: :ok
+
   end
 
   # POST /songs
