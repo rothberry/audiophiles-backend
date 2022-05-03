@@ -15,7 +15,8 @@ class UsersController < ApplicationController
     # ? Need to regenerate service_url every so often
     # user.img_url = user.image_link.service_url
     # user.save
-    reload_image(user)
+    p user
+    # reload_image(user)
     render json: {user: user, followed: followed_array, follower: follower_array} 
   end
 
