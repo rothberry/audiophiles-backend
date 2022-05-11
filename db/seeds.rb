@@ -6,13 +6,15 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+puts "DESTROYING DB"
 User.destroy_all
 Following.destroy_all
 Tag.destroy_all
 Song.destroy_all
 SongTag.destroy_all
 
-rothberry = User.new(
+puts "CREATING USERS"
+rothberry = User.create(
   username: 'rothberry', 
   name: 'phil', 
   password: '123', 
@@ -23,7 +25,7 @@ rothberry = User.new(
   twitter_url: 'https://twitter.com/rothberry_', 
   soundcloud_url: 'https://soundcloud.com/rothberry'
   )
-graceo = User.new(
+graceo = User.create(
   username: 'graceo', 
   name: 'grace', 
   password: '123', 
@@ -31,32 +33,29 @@ graceo = User.new(
   bio: 'sup', 
   img_url: 'https://miro.medium.com/fit/c/160/160/2*4Kbqxwmg8dJ4iWAtaRpVfg.jpeg'
   )
-mal = User.new(
+mal = User.create(
   username: 'mal', 
   name: 'malisa', 
   password: '123', 
   location: 'Chicago', 
   bio: 'sup'
   )
-clim = User.new(
+clim = User.create(
   username: 'c-lim', 
   name: 'christian', 
   password: '123', 
   location: 'Chicago', 
   bio: 'sup'
   )
-bruceo = User.new(
+bruceo = User.create(
   username: 'bruceo', 
   name: 'bruce', 
   password: '123', 
   location: 'Chicago', 
   bio: 'sup'
   )
-rothberry.save
-graceo.save
-mal.save
-clim.save
-bruceo.save
+
+puts "CREATING RELATIONSHIPS"
 
 Following.create(followed_id: rothberry.id, follower_id: graceo.id)
 Following.create(followed_id: rothberry.id, follower_id: mal.id)
@@ -66,15 +65,13 @@ Following.create(followed_id: graceo.id, follower_id: rothberry.id)
 Following.create(followed_id: graceo.id, follower_id: mal.id)
 Following.create(followed_id: mal.id, follower_id: bruceo.id)
 
+puts "CREATING TAGS"
+
 tag_arr = %w(ableton loop one_shot wip reaper fl_studio pro_tools synth sample drum_loop field_sample edit live logic cubase push massive sylenth analog wobble dub)
 tag_arr.each do |tag|
   Tag.create(name: tag)  
 end
-# Tag.create(name: 'ableton')
-# Tag.create(name: 'loop')
-# Tag.create(name: 'one_shot')
-# Tag.create(name: 'wip')
-
+ra
 # Banger_1 = Song.new(title: 'Banger 1', user_id: rothberry.id, genre: 'Trap', description: 'it\'s lit')
 # Yollow = Song.new(title: 'Yollow Me home', user_id: graceo.id, genre: 'House', description: 'idk, my bff jill')
 # Stairway = Song.new(title: 'Stairway to Seven', user_id: mal.id, genre: 'Trap', description: 'wowowowowowowow')

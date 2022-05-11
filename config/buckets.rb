@@ -11,13 +11,12 @@
 # language governing permissions and limitations under the License.
 
 # TODO
-# require 'aws-sdk-s3'  # v2: require 'aws-sdk'
+require 'aws-sdk-s3'  # v2: require 'aws-sdk'
 
-# region = 'us-west-1'
-# s3 = Aws::S3::Resource.new(region: region)
+s3 = Aws::S3::Resource.new(region: ENV["AWS_REGION"])
 
-# s3.buckets.limit(50).each do |b|
-#   if s3.client.get_bucket_location(bucket: b.name).location_constraint == region
-#     puts "#{b.name}"
-#   end
-# end
+s3.buckets.limit(50).each do |b|
+  # if s3.client.get_bucket_location(bucket: b.name).location_constraint == region
+    puts "#{b.name}"
+  # end
+end

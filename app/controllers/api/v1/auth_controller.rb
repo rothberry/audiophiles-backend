@@ -8,7 +8,6 @@ class Api::V1::AuthController < ApplicationController
     p user
     if user && user.authenticate(params[:password])
       token = issue_token(user)
-      # reload_image(user)
       render json: {user: user, jwt: token}, status: :accepted
     else 
       render json: {error: 'Invalid username or password'}, status: :unauthorized
@@ -19,8 +18,6 @@ class Api::V1::AuthController < ApplicationController
   def show
     p "***********************AUTH SHOW**************************"
     if logged_in?
-      # current_user
-      # reload_image(@user)
       render json: {user: @user}, include: [:active_relationships,:passive_relationships], status: :accepted
     else
       render json: {error: 'Invalid Token'}, status: :unauthorized

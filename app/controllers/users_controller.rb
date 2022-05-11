@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     # ? Need to regenerate service_url every so often
     # user.img_url = user.image_link.service_url
     # user.save
-    reload_image(user)
+    # reload_image(user)
     render json: {user: user, followed: followed_array, follower: follower_array} 
   end
 
@@ -24,9 +24,9 @@ class UsersController < ApplicationController
     user = User.new(user_params)
     if user.save
       token = issue_token(user)
-      if !!user.image_link
-        reload_image(user)
-      end
+      # if !!user.image_link
+      #   reload_image(user)
+      # end
       p user
       render json: {user: user, jwt: token}, status: :created
     else
